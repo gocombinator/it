@@ -1,9 +1,10 @@
 package it
 
-// UnsafeCombinations generates k-combinations of iterable values.
+// UnsafeCombinations yields k-combinations of values.
+// Uses single array allocation.
 // Avoids allocations per value making it faster than [Combinations].
-// Yielded array is shared and mutated, it can be used as read only array for immediate computation.
-// Use when performance matters and array is immediatelly transformed into some form of copied value.
+// Yielded array is shared, it is being mutated, it can be used as read only array consumed immediatelly.
+// Use when performance matters and yielded values are immediatelly transformed into some form of copied value.
 func UnsafeCombinations[T any](k int) func(Iterator[T]) Iterator[[]T] {
 	return func(it Iterator[T]) Iterator[[]T] {
 		var ch = make(chan []T)
